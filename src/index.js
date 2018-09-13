@@ -1,17 +1,37 @@
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
-import { ApolloServer } from 'apollo-server-express'
+import jwt from 'jsonwebtoken'
+import { ApolloServer, AuthenticationError } from 'apollo-server-express'
+
 import 'dotenv/config'
+
 import { typeDefs, resolvers } from './graphql'
 
+// app middleware
 const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 
+const getMe = async req => {
+  const token = req.headers['x-token']
+  if (token) {
+    try {
+      return await jwt.verify(token, process.env.JWT_SECRET)
+    } catch (e) {
+      throw new AuthenticationError('Your session expired')
+    }
+  }
+}
+
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context: async ({ req }) => {
+    return {
+      me: await getMe(req)
+    }
+  }
 })
 
 server.applyMiddleware({ app, path: '/graphql' })

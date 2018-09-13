@@ -8,3 +8,15 @@ type User {
 type Query {
   getUsers: [User]
 }
+
+type Mutation {
+  signup (
+    username: String!
+    email: String
+    pass: String,
+  ): String
+  login (
+    email: String
+    password: String
+  ): String
+}

@@ -33,6 +33,7 @@
     "graphql": "^14.0.2",
     "jsonwebtoken": "^8.3.0",
     "merge-graphql-schemas": "^1.5.4",
+    "pg-monitor": "^1.0.0",
     "pg-promise": "^8.4.6"
   }
 }

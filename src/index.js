@@ -14,6 +14,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 const getMe = async req => {
+  // console.log(JSON.stringify(req.headers))
   const token = req.headers['x-token']
   if (token) {
     try {

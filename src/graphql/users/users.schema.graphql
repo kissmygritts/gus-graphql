@@ -2,7 +2,7 @@ type User {
   id: ID!
   username: String
   email: String
-  pass: String
+  password: String
 }
 
 type Token {
@@ -18,9 +18,9 @@ type Mutation {
   signup (
     username: String!
     email: String!
-    pass: String!
+    password: String!
   ): Token!
-  login (
+  signin (
     email: String!
     password: String!
   ): Token!

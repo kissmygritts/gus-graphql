@@ -23,27 +23,27 @@ export default {
     },
 
     async me (root, args, ctx, info) {
-      const { user } = ctx
+      const { me } = ctx
 
-      if (!user) {
+      if (!me) {
         throw new Error(`You aren't authenticated!`)
       }
 
-      return db.one('select id, username, email, pass from users where id = $/id$', user)
+      return db.one('select id, username, email, password from users where id = $/id/', me)
     }
   },
 
   Mutation: {
     async signup (root, args, ctx, info) {
-      const { username, email, pass } = args
+      const { username, email, password } = args
 
       // create user in database
       const user = await db.one(
-        'insert into users (username, email, pass) values ($/username/, $/email/, $/pass/) returning *',
+        'insert into users (username, email, password) values ($/username/, $/email/, $/password/) returning *',
         {
           username,
           email,
-          pass: await bcrypt.hash(pass, 10)
+          password: await bcrypt.hash(password, 10)
         }
       )
 
@@ -51,15 +51,15 @@ export default {
       return { token: createToken(user, '30m') }
     },
 
-    async login (root, args, ctx, info) {
-      const user = await db.one('select id, email, username, pass from users where email = $/email/', args)
+    async signin (root, args, ctx, info) {
+      const user = await db.one('select id, email, username, password from users where email = $/email/', args)
       console.log(user)
       if (!user) {
         throw new UserInputError('No user found with this emaill address.')
       }
 
       // validate password
-      const isValid = await validatePassword(args.password, user.pass)
+      const isValid = await validatePassword(args.password, user.password)
 
       if (!isValid) {
         throw new AuthenticationError('Invalid password')

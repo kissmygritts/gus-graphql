@@ -5,6 +5,10 @@ type User {
   pass: String
 }
 
+type Token {
+  token: String!
+}
+
 type Query {
   getUsers: [User]
   me: User
@@ -13,11 +17,11 @@ type Query {
 type Mutation {
   signup (
     username: String!
-    email: String
-    pass: String,
-  ): String
+    email: String!
+    pass: String!
+  ): Token!
   login (
-    email: String
-    password: String
-  ): String
+    email: String!
+    password: String!
+  ): Token!
 }

@@ -8,11 +8,9 @@ import { isAuthenticated } from '../../lib/authorization'
 
 const createToken = async (user, expiresIn) => {
   const { id, email, username } = user
-  return jwt.sign(
-    { id, email, username },
-    process.env.JWT_SECRET,
-    { expiresIn }
-  )
+  return jwt.sign({ id, email, username }, process.env.JWT_SECRET, {
+    expiresIn
+  })
 }
 
 const validatePassword = async (loginPassword, dbPassword) => {

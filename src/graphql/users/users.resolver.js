@@ -23,24 +23,26 @@ export default {
     //   return db.any('SELECT * FROM users')
     // },
 
-    getUsers: combineResolvers(
-      isAuthenticated,
-      async (root, args, ctx, info) => db.any('select * from users')
+    getUsers: combineResolvers(isAuthenticated, async (root, args, ctx, info) =>
+      db.any('select * from users')
     ),
 
-    async me (root, args, ctx, info) {
+    async me(root, args, ctx, info) {
       const { me } = ctx
 
       if (!me) {
         throw new Error(`You aren't authenticated!`)
       }
 
-      return db.one('select id, username, email, password from users where id = $/id/', me)
+      return db.one(
+        'select id, username, email, password from users where id = $/id/',
+        me
+      )
     }
   },
 
   Mutation: {
-    async signup (root, args, ctx, info) {
+    async signup(root, args, ctx, info) {
       const { username, email, password } = args
 
       // create user in database
@@ -57,8 +59,11 @@ export default {
       return { token: createToken(user, '30m') }
     },
 
-    async signin (root, args, ctx, info) {
-      const user = await db.one('select id, email, username, password from users where email = $/email/', args)
+    async signin(root, args, ctx, info) {
+      const user = await db.one(
+        'select id, email, username, password from users where email = $/email/',
+        args
+      )
       console.log(user)
       if (!user) {
         throw new UserInputError('No user found with this emaill address.')

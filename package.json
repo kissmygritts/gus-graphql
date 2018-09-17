@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -e js,json,graphql --exec babel-node src/index.js",
-    "lint": "eslint src -c .eslintrc.json --ext js"
+    "lint": "eslint src -c .eslintrc.json --ext js",
+    "check-staged": "lint-staged"
   },
   "author": "Mitchell Gritts",
   "license": "Unlicense",

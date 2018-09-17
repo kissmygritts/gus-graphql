@@ -1,7 +1,10 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { AuthenticationError, UserInputError } from 'apollo-server'
+import { combineResolvers } from 'graphql-resolvers'
+
 import { db } from '../../db'
+import { isAuthenticated } from '../../lib/authorization'
 
 const createToken = async (user, expiresIn) => {
   const { id, email, username } = user
@@ -18,9 +21,14 @@ const validatePassword = async (loginPassword, dbPassword) => {
 
 export default {
   Query: {
-    async getUsers (root, args, ctx, info) {
-      return db.any('SELECT * FROM users')
-    },
+    // async getUsers (root, args, ctx, info) {
+    //   return db.any('SELECT * FROM users')
+    // },
+
+    getUsers: combineResolvers(
+      isAuthenticated,
+      async (root, args, ctx, info) => db.any('select * from users')
+    ),
 
     async me (root, args, ctx, info) {
       const { me } = ctx

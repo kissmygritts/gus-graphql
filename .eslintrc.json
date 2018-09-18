@@ -1,4 +1,7 @@
 {
+    "env": {
+      "jest": true
+    },
     "extends": ["standard", "prettier-standard"],
     "plugins": ["prettier"] 
 }

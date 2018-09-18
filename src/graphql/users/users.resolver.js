@@ -43,7 +43,7 @@ export default {
 
   Mutation: {
     async signup(root, args, ctx, info) {
-      const { username, email, password } = args
+      const { username, email, password } = args.input
 
       // create user in database
       const user = await db.one(

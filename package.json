@@ -6,7 +6,9 @@
   "scripts": {
     "start": "nodemon -e js,json,graphql --exec babel-node src/index.js",
     "lint": "eslint src -c .eslintrc.json --ext js",
-    "check-staged": "lint-staged"
+    "check-staged": "lint-staged",
+    "test": "DB_URI_TEST=postgresql://localhost/gus_test jest",
+    "test-server": "DB_URI_TEST=postgresql://localhost/gus_test npm start"
   },
   "author": "Mitchell Gritts",
   "license": "Unlicense",
@@ -24,6 +26,7 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "husky": "^1.0.0-rc.14",
+    "jest": "^23.6.0",
     "lint-staged": "^7.2.2",
     "nodemon": "^1.18.4",
     "prettier": "^1.14.2"
@@ -31,6 +34,7 @@
   "dependencies": {
     "apollo-server": "^2.0.7",
     "apollo-server-express": "^2.0.6",
+    "axios": "^0.18.0",
     "bcrypt": "^3.0.0",
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",

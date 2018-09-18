@@ -14,12 +14,14 @@ type Query {
   me: User
 }
 
+input SignUpInput {
+  username: String!
+  email: String!
+  password: String!
+}
+
 type Mutation {
-  signup (
-    username: String!
-    email: String!
-    password: String!
-  ): Token!
+  signup (input: SignUpInput): Token!
   signin (
     email: String!
     password: String!

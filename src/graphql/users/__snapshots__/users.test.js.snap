@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Signin a user return an error if password is incorrect 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    [GraphQLError: Invalid password],
+  ],
+}
+`;
+
+exports[`Signin a user return an error if user is not found 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    [GraphQLError: No user found with this emaill address.],
+  ],
+}
+`;
+
+exports[`Signup new users return duplicate entry error when same email is used 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    [GraphQLError: duplicate key value violates unique constraint "users_email_key"],
+  ],
+}
+`;
+
+exports[`Signup new users return duplicate entry error when same username is used 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    [GraphQLError: duplicate key value violates unique constraint "users_username_key"],
+  ],
+}
+`;
+
+exports[`Signup new users return error when email isn't a string 1`] = `
+Object {
+  "errors": Array [
+    [GraphQLError: Variable "$input" got invalid value { username: "mitch", email: 1234, password: "password" }; Expected type String at value.email; String cannot represent a non string value: 1234],
+  ],
+}
+`;
+
+exports[`Signup new users return error when password isn't a string 1`] = `
+Object {
+  "errors": Array [
+    [GraphQLError: Variable "$input" got invalid value { username: "mitch", email: "mitch@email.com", password: 1234 }; Expected type String at value.password; String cannot represent a non string value: 1234],
+  ],
+}
+`;
+
+exports[`Signup new users return error when username isn't a string 1`] = `
+Object {
+  "errors": Array [
+    [GraphQLError: Variable "$input" got invalid value { username: 1234, email: "mitch@email.com", password: "password" }; Expected type String at value.username; String cannot represent a non string value: 1234],
+  ],
+}
+`;
+
+exports[`Signup new users return null constraint error when a null value is used 1`] = `
+Object {
+  "errors": Array [
+    [GraphQLError: Variable "$input" got invalid value { username: null, email: "mitch@email.com", password: "password" }; Expected non-nullable type String! not to be null at value.username.],
+  ],
+}
+`;

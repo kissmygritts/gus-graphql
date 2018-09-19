@@ -10,6 +10,6 @@ export const initDatabase = async () => {
   `)
 }
 
-export const clearDatabase = () => {
+export const cleanDatabase = () => {
   return db.none(`TRUNCATE users RESTART IDENTITY CASCADE`)
 }

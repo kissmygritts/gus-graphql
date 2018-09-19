@@ -60,17 +60,17 @@ export default {
     },
 
     async signin(root, args, ctx, info) {
-      const user = await db.one(
+      const user = await db.oneOrNone(
         'select id, email, username, password from users where email = $/email/',
-        args
+        { ...args.input }
       )
-      console.log(user)
+
       if (!user) {
         throw new UserInputError('No user found with this emaill address.')
       }
 
       // validate password
-      const isValid = await validatePassword(args.password, user.password)
+      const isValid = await validatePassword(args.input.password, user.password)
 
       if (!isValid) {
         throw new AuthenticationError('Invalid password')

@@ -20,10 +20,12 @@ input SignUpInput {
   password: String!
 }
 
+input SignInInput {
+  email: String!
+  password: String!
+}
+
 type Mutation {
   signup (input: SignUpInput): Token!
-  signin (
-    email: String!
-    password: String!
-  ): Token!
+  signin (input: SignInInput): Token!
 }

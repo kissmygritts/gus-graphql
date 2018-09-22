@@ -38,25 +38,41 @@ export default {
 
       // run the queries as a task
       const response = await db.task(async t => {
+        // get the count of all the records in the database
         const totalCount = await t.one(
           'select count(*) as "totalCount" from activities'
         )
+        // get all the records from the database
         const edges = await t.manyOrNone(edgesSql)
-
-        // if last page, end cursor is null
-        const endCursor = edges.length !== 0 ? edges[edges.length - 1].id : null
+        // get the very last records id
+        const lastCursor = await t.one(
+          'SELECT id FROM activities ORDER BY created_at LIMIT 1'
+        )
 
         return {
-          ...totalCount,
+          totalCount,
           edges,
-          pageInfo: {
-            endCursor,
-            hasNextPage: false
-          }
+          lastCursor
         }
       })
 
-      return { ...response }
+      // last cursor on the current page
+      const endCursor =
+        response.edges.length !== 0
+          ? response.edges[response.edges.length - 1].id
+          : null
+      // is there another page, check if lastCursor is in the current page
+      const hasNextPage =
+        response.edges.map(m => m.id).indexOf(response.lastCursor.id) === -1
+
+      return {
+        totalCount: response.totalCount.totalCount,
+        edges: response.edges,
+        pageInfo: {
+          endCursor,
+          hasNextPage
+        }
+      }
     }
   },
 

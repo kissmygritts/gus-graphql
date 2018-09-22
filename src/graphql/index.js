@@ -4,7 +4,7 @@ import path from 'path'
 const typesArray = fileLoader(path.join(__dirname, './**/*.schema.graphql'), {
   recursive: true
 })
-const resolversArray = fileLoader(path.join(__dirname, './**/*.resolver.js'), {
+const resolversArray = fileLoader(path.join(__dirname, './**/*.resolvers.js'), {
   recursive: true
 })
 

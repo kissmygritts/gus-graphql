@@ -1,0 +1,7 @@
+scalar DateTime
+scalar Time
+scalar Date
+
+interface Node {
+  id: ID!
+}

@@ -1,0 +1,19 @@
+type Category {
+  id: ID!
+  category: String
+  category_details: String
+  created_at: DateTime
+}
+
+type Query {
+  categories: [Category!]!
+}
+
+input CategoryInput {
+  category: String!
+  category_details: String
+}
+
+type Mutation {
+  createCategory(input: CategoryInput!): Category
+}

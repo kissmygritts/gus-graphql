@@ -1,0 +1,42 @@
+type Activity implements Node {
+  id: ID!
+  activity_name: String
+  activity_type: String
+  activity_start_date: DateTime
+  activity_end_date: DateTime
+  activity_duration: Int
+  activity_time_frame: String
+  activity_details: String
+  created_at: DateTime
+  updated_at: DateTime
+  events: [Event]
+}
+
+type ActivityConnection {
+  totalCount: Int
+  edges: [Activity!]!
+  pageInfo: PageInfo
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean
+}
+
+input ActivityInput {
+  activity_name: String!
+  activity_type: String
+  activity_details: String
+}
+
+input PaginationInput {
+  first: Int
+  after: String
+}
+
+type Query {
+  activities(paginationInput: PaginationInput): ActivityConnection
+}
+type Mutation {
+  createActivity(input: ActivityInput): Activity
+}

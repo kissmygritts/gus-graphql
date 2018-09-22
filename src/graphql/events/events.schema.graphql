@@ -1,0 +1,17 @@
+type Event {
+  id: ID!
+  activity_id: ID
+  event_start_timestamp: DateTime
+  event_end_timestamp: DateTime
+  event_type: String
+  x: Float
+  y: Float
+  datum: Int
+  comments: String
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+type Query {
+  events: [Event!]!
+}

@@ -14,8 +14,13 @@ type Activity implements Node {
 
 type ActivityConnection {
   totalCount: Int
-  edges: [Activity!]!
+  edges: [ActivityEdge!]!
   pageInfo: PageInfo
+}
+
+type ActivityEdge {
+  cursor: String
+  node: Activity
 }
 
 type PageInfo {

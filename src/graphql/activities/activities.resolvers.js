@@ -64,10 +64,17 @@ export default {
       // is there another page, check if lastCursor is in the current page
       const hasNextPage =
         response.edges.map(m => m.id).indexOf(response.lastCursor.id) === -1
+      // create ActivityNode
+      const activityNode = response.edges.map(m => {
+        return {
+          cursor: m.id,
+          node: { ...m }
+        }
+      })
 
       return {
         totalCount: response.totalCount.totalCount,
-        edges: response.edges,
+        edges: activityNode,
         pageInfo: {
           endCursor,
           hasNextPage
@@ -91,5 +98,7 @@ export default {
         data
       )
     }
-  }
+  },
+
+  Activity: {}
 }

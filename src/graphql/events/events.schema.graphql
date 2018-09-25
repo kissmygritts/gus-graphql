@@ -12,6 +12,28 @@ type Event {
   updated_at: DateTime
 }
 
+type EventConnection {
+  totalCount: Int
+  edges: [EventEdge!]!
+  pageInfo: PageInfo
+}
+
+type EventEdge {
+  cursor: String
+  node: Event
+}
+
+input EventInput {
+  activity_id: ID!
+  x: Float
+  y: Float
+  datum: Int
+}
+
 type Query {
-  events: [Event!]!
+  events(paginationInput: PaginationInput): EventConnection
+}
+
+type Mutation {
+  createEvent(input: EventInput): Event
 }

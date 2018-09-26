@@ -1,8 +1,8 @@
 type Category {
   id: ID!
   category: String
-  category_details: String
-  created_at: DateTime
+  categoryDetails: String
+  createdAt: DateTime
 }
 
 type Query {
@@ -11,7 +11,7 @@ type Query {
 
 input CategoryInput {
   category: String!
-  category_details: String
+  categoryDetails: String
 }
 
 type Mutation {

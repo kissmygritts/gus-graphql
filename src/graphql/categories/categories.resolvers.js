@@ -5,7 +5,7 @@ export default {
     categories: async (root, args, ctx, info) => {
       const categories = sq.from`categories`
       console.log(categories.query)
-      return categories.all()
+      return categories
     }
   },
 
@@ -18,6 +18,7 @@ export default {
       return newCategory
     }
   },
+
   Node: {
     __resolveType(root, ctx, info) {
       if (root.category) {

@@ -1,15 +1,17 @@
 type Activity implements Node {
   id: ID!
-  activity_name: String
-  activity_type: String
-  activity_start_date: DateTime
-  activity_end_date: DateTime
-  activity_duration: Int
-  activity_time_frame: String
-  activity_details: String
-  created_at: DateTime
-  updated_at: DateTime
+  activityName: String
+  activityType: String
+  activityStartDate: DateTime
+  activityEndDate: DateTime
+  activityDuration: Int
+  activityTimeFrame: String
+  activityDetails: String
+  createdAt: DateTime
+  updatedAt: DateTime
   events: [Event]
+  # categoriesConnection: [ActivityCategoryConnection]
+  categories: [Category]
 }
 
 type ActivityConnection {
@@ -29,10 +31,12 @@ type PageInfo {
 }
 
 input ActivityInput {
-  activity_name: String!
-  activity_type: String
-  activity_details: String
+  activityName: String!
+  activityType: String
+  activityDetails: String
 }
+
+# Activity -> Category 
 
 input PaginationInput {
   first: Int
@@ -44,4 +48,5 @@ type Query {
 }
 type Mutation {
   createActivity(input: ActivityInput): Activity
+  deleteActivity(id: ID!): Activity
 }

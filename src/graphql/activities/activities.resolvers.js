@@ -1,4 +1,6 @@
 import { db } from '../../db'
+import { create, CategoryLoader } from './activities.model'
+import { sq } from '../../db/sqorn'
 const format = require('pg-promise/lib/formatting').as.format
 
 export default {
@@ -86,19 +88,20 @@ export default {
   Mutation: {
     createActivity: async (root, args, ctx, info) => {
       const data = args.input
+      return create({ table: 'activities', data })
+    },
 
-      return db.one(
-        `
-          insert into activities 
-            (activity_name, activity_type, activity_details)
-          values
-            ($/activity_name/, $/activity_type/, $/activity_details/)
-          returning *
-        `,
-        data
-      )
+    deleteActivity: async (root, args, ctx, info) => {
+      const id = args.id
+      return sq.l`delete from activities where id = ${id} returning *`.one()
     }
   },
 
-  Activity: {}
+  Activity: {
+    categories: async (root, args, ctx, info) => {
+      return CategoryLoader.load(root.id).then(data => {
+        return data
+      })
+    }
+  }
 }

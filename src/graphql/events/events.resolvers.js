@@ -16,9 +16,7 @@ export default {
                   SELECT created_at FROM events WHERE id = $/cursor/
                 )
               `,
-              {
-                cursor
-              }
+              { cursor }
             )
           : ''
 
